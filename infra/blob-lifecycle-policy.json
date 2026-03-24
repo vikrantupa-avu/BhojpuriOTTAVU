@@ -1,0 +1,22 @@
+{
+  "rules": [
+    {
+      "name": "move-processed-to-cool-after-45d",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["processed-videos/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "tierToCool": {
+              "daysAfterModificationGreaterThan": 45
+            }
+          }
+        }
+      }
+    }
+  ]
+}
