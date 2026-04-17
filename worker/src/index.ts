@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { Queue, Worker } from 'bullmq';
 import Redis from 'ioredis';
 import { config } from './config';

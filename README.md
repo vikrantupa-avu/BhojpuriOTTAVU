@@ -26,7 +26,7 @@ A mobile-first OTT platform for episodic content (<= 5 minutes per episode), bui
 
 ### Async Video Pipeline
 1. Raw upload lands in Azure Blob `raw-videos` container.
-2. API enqueues a processing job (`video:transcode`).
+2. API enqueues a processing job (`video:transcode`) via `POST /api/videos/transcode`.
 3. Worker pulls job via BullMQ and executes FFmpeg ladder encoding (240p/480p/720p optional).
 4. HLS manifests + segments + thumbnails stored under `processed-videos`.
 5. CDN serves manifests/segments with caching and signed URL validation.
@@ -56,20 +56,47 @@ ffmpeg -i input.mp4 \
   v%v/index.m3u8
 ```
 
-## Azure Cost Controls
-- Blob lifecycle policy moves stale media from Hot to Cool.
-- CDN mandatory for all playback to reduce Blob egress and origin hits.
-- Signed playback URLs with short expiry.
-- Aggressive compression with CRF 26–30 and short HLS segments.
-- Disable autoplay previews to reduce wasteful bandwidth.
-
 ## API Surface
-- `GET /series`
-- `GET /series/:id`
-- `GET /episodes/:seriesId`
-- `POST /watch-progress`
-- `GET /continue-watching`
-- `GET /search?q=`
+- `GET /api/series`
+- `GET /api/series/home`
+- `GET /api/series/:id`
+- `GET /api/episodes/:seriesId`
+- `POST /api/watch-progress`
+- `GET /api/continue-watching?userId=`
+- `GET /api/search?q=`
+- `POST /api/videos/transcode`
+
+## Local Development Setup
+
+### 1) Start dependencies (MongoDB + Redis)
+```bash
+npm run dev:deps
+```
+
+### 2) Copy env files
+```bash
+cp .env.example .env
+cp backend/.env.example backend/.env
+cp worker/.env.example worker/.env
+cp mobile/.env.example mobile/.env
+```
+
+### 3) Install dependencies
+```bash
+npm install
+```
+
+### 4) Run services in separate terminals
+```bash
+npm run dev:backend
+npm run dev:worker
+npm run dev:mobile
+```
+
+Mobile API default behavior:
+- Android emulator defaults to `http://10.0.2.2:3000/api`
+- iOS simulator defaults to `http://localhost:3000/api`
+- Both can be overridden via `EXPO_PUBLIC_API_BASE_URL` in `mobile/.env`.
 
 ## Run Plan
 - Deploy backend API and worker separately for independent scaling.

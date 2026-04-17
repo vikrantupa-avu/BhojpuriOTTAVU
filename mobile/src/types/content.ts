@@ -17,3 +17,11 @@ export interface Episode {
   hlsManifestUrl: string;
   introEndSecond: number;
 }
+
+export interface ContinueWatchingItem extends Series {
+  progress: {
+    episodeId: string;
+    positionSeconds: number;
+    durationSeconds: number;
+  };
+}

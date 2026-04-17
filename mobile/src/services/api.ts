@@ -1,4 +1,6 @@
-const BASE_URL = 'https://api.example.com/api';
+import { appConfig } from '../config';
+
+const BASE_URL = appConfig.apiBaseUrl;
 
 async function request<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`);

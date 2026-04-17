@@ -1,12 +1,12 @@
 import { create } from 'zustand';
 import { api } from '../services/api';
-import { Series } from '../types/content';
+import { ContinueWatchingItem, Series } from '../types/content';
 
 interface HomeState {
   featured: Series[];
   trending: Series[];
   newReleases: Series[];
-  continueWatching: Series[];
+  continueWatching: ContinueWatchingItem[];
   loading: boolean;
   loadHome: (userId: string) => Promise<void>;
 }

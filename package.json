@@ -1,0 +1,17 @@
+{
+  "name": "bhojpuri-ott-avu",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "worker",
+    "mobile"
+  ],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "dev:backend": "npm run dev -w backend",
+    "dev:worker": "npm run dev -w worker",
+    "dev:mobile": "npm run start -w mobile",
+    "dev:deps": "docker compose -f docker-compose.local.yml up -d",
+    "dev": "echo 'Run backend/worker/mobile in separate terminals: npm run dev:backend | npm run dev:worker | npm run dev:mobile'"
+  }
+}
