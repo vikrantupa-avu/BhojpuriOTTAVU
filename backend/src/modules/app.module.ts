@@ -8,6 +8,7 @@ import { WatchProgressModule } from './watch-progress/watch-progress.module';
 import { ContinueWatchingModule } from './continue-watching/continue-watching.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from '../redis/redis.module';
+import { VideoQueueModule } from './video-queue/video-queue.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RedisModule } from '../redis/redis.module';
     SearchModule,
     WatchProgressModule,
     ContinueWatchingModule,
+    VideoQueueModule,
   ],
 })
 export class AppModule {}
