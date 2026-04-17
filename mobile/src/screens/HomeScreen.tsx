@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useHomeStore } from '../store/useHomeStore';
+import { appConfig } from '../config';
 import { colors } from '../theme/colors';
 import { ContentCard } from '../components/ContentCard';
 import { SkeletonCard } from '../components/SkeletonCard';
@@ -26,7 +27,7 @@ export function HomeScreen({ navigation }: any) {
   const { featured, trending, newReleases, continueWatching, loading, loadHome } = useHomeStore();
 
   useEffect(() => {
-    loadHome('mock-user-id');
+    loadHome(appConfig.appUserId);
   }, [loadHome]);
 
   return (
